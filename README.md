@@ -1,5 +1,7 @@
 <h1>Neversitup Kafka Laboratory</h1>
 
+<img src="./thumnail.jpg" alt="thumnail.jpg">
+
 <h2>🐳 Start Project</h2>
 
 ```bash
