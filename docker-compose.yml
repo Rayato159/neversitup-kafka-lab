@@ -2,10 +2,16 @@ version: '3.8'
 
 name: 'neversitup-kafka-lab'
 
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   kafka:
-    container_name: 'kafka-broker-1'
+    container_name: 'my-kafka'
     image: 'bitnami/kafka:latest'
+    networks:
+      - app-tier
     ports:
       - '9092:9092'
     environment:
@@ -15,4 +21,40 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      
+  orderapp:
+    container_name: 'order-app'
+    build:
+      context: .
+      dockerfile: Dockerfile.OrderApp
+    networks:
+      - app-tier
+    ports:
+      - '1323:1323'
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/app', '/bin/.env.order' ]
+
+  stockapp:
+    container_name: 'stock-app'
+    build:
+      context: .
+      dockerfile: Dockerfile.StockApp
+    networks:
+      - app-tier
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/app', '/bin/.env.stock' ]
+
+  paymentapp:
+    container_name: 'payment-app'
+    build:
+      context: .
+      dockerfile: Dockerfile.PaymentApp
+    networks:
+      - app-tier
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/app', '/bin/.env.payment' ]
+    

@@ -14,7 +14,7 @@ docker compose up -d
 <p>Enter into the Kafka container</p>
 
 ```bash
-docker exec -it kafka bash
+docker exec -it my-kafka bash
 ```
 
 <p>Create a topic</p>
