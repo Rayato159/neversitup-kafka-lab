@@ -34,7 +34,6 @@ services:
       - '1323:1323'
     depends_on:
       - kafka
-    entrypoint: [ '/bin/app', '/bin/.env.order' ]
 
   stockapp:
     container_name: 'stock-app'
@@ -45,7 +44,6 @@ services:
       - app-tier
     depends_on:
       - kafka
-    entrypoint: [ '/bin/app', '/bin/.env.stock' ]
 
   paymentapp:
     container_name: 'payment-app'
@@ -56,5 +54,4 @@ services:
       - app-tier
     depends_on:
       - kafka
-    entrypoint: [ '/bin/app', '/bin/.env.payment' ]
     

@@ -1,0 +1,12 @@
+.git
+.gitignore
+
+LICENSE
+README.md
+
+.air*
+
+*.jpg
+*.pdf
+
+/postman
