@@ -26,6 +26,12 @@ docker exec -it my-kafka bash
 <p>See all topics list</p>
 
 ```bash
+./opt/bitnami/kafka/bin/kafka-topics.sh --list --topic order --bootstrap-server localhost:9092
+```
+
+<p>Describe topic</p>
+
+```bash
 ./opt/bitnami/kafka/bin/kafka-topics.sh --describe --topic order --bootstrap-server localhost:9092
 ```
 
@@ -44,5 +50,5 @@ docker exec -it my-kafka bash
 <p>Delete topic</p>
 
 ```bash
-./opt/bitnami/kafka/bin/kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic quickstart-events
+./opt/bitnami/kafka/bin/kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic order
 ```
